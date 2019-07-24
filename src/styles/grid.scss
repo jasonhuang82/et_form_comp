@@ -16,6 +16,14 @@
     }
 }
 
+.clearfix {
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
 @for $i from 1 through 12 {
     .col-#{$i} {
         width: calc(#{ ($i / 12 * 100%) });
