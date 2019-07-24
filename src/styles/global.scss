@@ -1,0 +1,11 @@
+@import "~normalize.css/normalize.css";
+
+@import "./variable.scss";
+@import "./mixin.scss";
+@import "./utils.scss";
+@import "./grid.scss";
+
+
+* {
+    box-sizing: border-box;
+}
