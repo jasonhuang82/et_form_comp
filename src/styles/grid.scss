@@ -1,0 +1,47 @@
+
+
+
+[class^=col] {
+    float: left;
+    padding: 0 $grid_gap;
+}
+
+
+.row {
+    margin: 0 -$grid_gap;
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        width: calc(#{ ($i / 12 * 100%) });
+    }
+}
+
+@for $i from 1 through 12 {
+    @include mediaMobile {
+        .col-sm-#{$i} {
+            width: calc(#{ ($i / 12 * 100%) });
+        }
+    }
+}
+
+@for $i from 1 through 12 {
+    @include mediaTablets {
+        .col-md-#{$i} {
+            width: calc(#{ ($i / 12 * 100%) });
+        }
+    }
+}
+
+@for $i from 1 through 12 {
+    @include mediaDesktop {
+        .col-lg-#{$i} {
+            width: calc(#{ ($i / 12 * 100%) });
+        }
+    }
+}
