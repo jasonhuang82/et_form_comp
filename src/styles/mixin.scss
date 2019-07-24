@@ -1,0 +1,21 @@
+
+@mixin mediaMobile () {
+    @media (min-width: $media_lg_mobile) {
+        @content;
+    }
+}
+
+
+@mixin mediaTablets () {
+    @media (min-width: $media_tablets) {
+        @content;
+    }
+}
+
+
+
+@mixin mediaDesktop () {
+    @media (min-width: $media_desktop) {
+        @content;
+    }
+}
