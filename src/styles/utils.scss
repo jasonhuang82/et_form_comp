@@ -1,8 +1,54 @@
-.pos-ab-center {
-    @include abCenter;
+// btn
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #ededed;
+    border: none;
+    color: #5d5d5d;
+    font-size: calcFontSize(1.5);
+    line-height: 1;
+    cursor: pointer;
+
+    &:not(.btn-disable):hover {
+        background-color: darken(#ededed, 1.5);
+    }
+    &.btn-disable {
+        cursor: no-drop;
+        color: #999;
+    }
+
+    &.btn-border {
+        border: 1px solid #e1e1e1;
+    }
+
+    &.btn-submit {
+
+    }
+}
+
+
+// display
+.d-b {
+    display: block;
+}
+
+.d-i-b {
+    display: inline-block;
 }
 
 // width
+.w-30p {
+    width: 30%;
+}
+.w-40p {
+    width: 40%;
+}
+
+.w-60p {
+    width: 60%;
+}
+
 .w-80p {
     width: 80%;
 }
@@ -10,6 +56,78 @@
 // height
 .h-80vh{
     height: 80vh;
+}
+
+// margin 
+.m-b-xs {
+    margin-bottom: calcMargin(1);
+}
+
+.m-b-sm {
+    margin-bottom: calcMargin(2);
+}
+
+.m-b-md {
+    margin-bottom: calcMargin(3);
+}
+
+.m-b-lg {
+    margin-bottom: calcMargin(4);
+}
+
+
+// padding 
+.p-xs {
+    padding: calcPadding(1);
+}
+
+.p-sm {
+    padding: calcPadding(2);
+}
+
+.p-md {
+    padding: calcPadding(3);
+}
+
+.p-lg {
+    padding: calcPadding(4);
+}
+
+// font size 
+.fz-xs {
+    padding: calcFontSize(1);
+}
+
+.fz-sm {
+    padding: calcFontSize(2);
+}
+
+.fz-md {
+    padding: calcFontSize(3);
+}
+
+.fz-lg {
+    padding: calcFontSize(4);
+}
+
+// position
+.pos-ab {
+    position: absolute;
+}
+
+.pos-ab-center {
+    @include abCenter;
+}
+
+.t-50p {
+    top: 50%;
+}
+.r-5 {
+    right: 5px;
+}
+
+.translate-y-50p {
+    transform: translateY(-50%);
 }
 
 // background
