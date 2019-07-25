@@ -1,0 +1,18 @@
+.pos-ab-center {
+    @include abCenter;
+}
+
+// width
+.w-80p {
+    width: 80%;
+}
+
+// height
+.h-80vh{
+    height: 80vh;
+}
+
+// background
+.bg-white {
+    background-color: #fff;
+}

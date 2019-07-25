@@ -1,13 +1,7 @@
+@import '../../styles/variable.scss';
 .App {
-    
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0px;
-    }
-    li {
-        border: 1px solid #000;
-        background-color: blue;
-        height: 100px;
+    &_content {
+        height: calc(100vh - #{$navbar_height});
+        position: relative;
     }
 }
