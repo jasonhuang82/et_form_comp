@@ -1,0 +1,53 @@
+@import '../../styles/variable.scss';
+@import '../../styles/mixin.scss';
+.Header {
+    padding: 0 15px;
+    background-color: $navbar_link_color;
+    > nav {
+        float: right;
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        > li {
+            float: left;
+            a {
+                display: block;
+                padding: 0 10px;
+                text-transform: capitalize;
+                font-size: 18px;
+                color: #fff;
+                transition: background-color 0.3s ease;
+                text-decoration: none;
+                line-height: $navbar_height;
+                position: relative;
+                overflow: hidden;
+
+                >span {
+                    position: relative;
+                    z-index: 1;
+                }
+                &::before {
+                    content: '';
+                    display: block;
+                    width: 0px;
+                    height: 0px;
+                    @include abCenter;
+                    z-index: 0;
+                    border-radius: 50%;
+                    background-color: darken($navbar_link_color, 50%);
+                    opacity: 0.5;
+                    transition: 0.5s;
+                }
+                &:hover {
+                    &::before{
+                        width: 200px;
+                        height: 200px;
+
+                    }
+                }
+            }
+        }
+    }
+}
