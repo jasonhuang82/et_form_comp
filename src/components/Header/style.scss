@@ -1,5 +1,4 @@
-@import '../../styles/variable.scss';
-@import '../../styles/mixin.scss';
+@import "styles/tools/tools.scss";
 .Header {
     padding: 0 15px;
     background-color: $navbar_link_color;
