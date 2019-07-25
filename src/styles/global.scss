@@ -1,7 +1,6 @@
 @import "~normalize.css/normalize.css";
 
-@import "./variable.scss";
-@import "./mixin.scss";
+@import "./tools/tools.scss";
 @import "./utils.scss";
 @import "./grid.scss";
 
@@ -13,4 +12,6 @@
 body {
     font-family: Microsoft JhengHei;
     background-color: #f7f7f7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
