@@ -8,7 +8,8 @@
 
 
 .row {
-    margin: 0 -$grid_gap;
+    margin-right: -$grid_gap;
+    margin-left: -$grid_gap;
     &::after {
         content: '';
         display: table;
