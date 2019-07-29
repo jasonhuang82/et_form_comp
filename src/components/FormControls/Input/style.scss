@@ -1,0 +1,21 @@
+@import "styles/tools/tools.scss";
+
+.form-control-input {
+    & {
+        height: $input_height;
+        position: relative;
+        &.form-control-input-error {
+            input {
+                border-color: $color_primary;
+            }
+        }
+    }
+    input {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0 calcPadding(1);
+        border: 1px solid #e1e1e1;
+        font-size: 14px;
+    }
+}
