@@ -4,9 +4,69 @@ import './style.scss';
 import FormControl from 'components/FormControls/FormControl/formControl';
 import Input from 'components/FormControls/Input/input';
 import Select from 'components/FormControls/Select/select';
+// formik
+import validateRegisterForm from 'hoc/validateRegisterForm';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
+    constructor(props){
+        super(props)
+        this.countryOptions = [
+            {
+                name: '中國 +86',
+                value: '86',
+            },
+            {
+                name: '香港 +852',
+                value: '852',
+            },
+            {
+                name: '澳門 +853',
+                value: '853',
+            },
+            {
+                name: '台灣 +886',
+                value: '886',
+            },
+        ];
+    }
+    handleFormikInputChange = ({
+        setFieldTouched = () => {},
+        handleChange = () => {},
+    }) => e => {
+        const fieldName = e.target.name;
+        setFieldTouched(fieldName, true, true);
+        handleChange(e);
+    }
+
+
+    getErrorMessage = (fieldName) => {
+        const {
+            errors,
+            touched,
+        } = this.props;
+
+        return errors[fieldName] && touched[fieldName] && errors[fieldName];
+    }
     render() {
+        const {
+            values,
+            errors,
+            isValid,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+            // https://github.com/jaredpalmer/formik/issues/114
+            // touched 必須在 blur 時，才會判斷已 touch，但會有一開始 onInput 時就 trigger 的情況
+            // 所以在 onChange 時就設定已 touch，讓 validation error message 能正常顯示
+            // setFieldTouched('fieldName', isTouched, shouldValidate)
+            setFieldTouched,
+            /* and other goodies */
+        } = this.props;
+
+        console.log('error', errors);
+        console.log('touch', touched);
         return (
         <div className="LoginForm w-80p h-80vh p-lg pos-ab-center bg-white">
             <form className="d-b">
@@ -15,74 +75,99 @@ export default class LoginForm extends Component {
                 </div>
 
                 {/* 手機 */}
-                <FormControl label="您的手機號碼" errorMessage="最少 9 個字">
+                <FormControl label="您的手機號碼" errorMessage={this.getErrorMessage('phone')}>
                     <div className="form-control-combine">
                         <Select
+                            name="country"
+                            value={values.country}
+                            onChange={handleChange}
                             wrapClass="form-control-combine-select w-40p d-i-b vertical-align-top"
-                            options={[
-                                {
-                                    name: '中國 +86',
-                                    value: '86',
-                                },
-                                {
-                                    name: '香港 +852',
-                                    value: '852',
-                                },
-                                {
-                                    name: '澳門 +853',
-                                    value: '853',
-                                },
-                                {
-                                    name: '台灣 +886',
-                                    value: '886',
-                                },
-                            ]}
+                            options={this.countryOptions}
                         />
-                        <Input wrapClass="form-control-combine-input w-60p  d-i-b vertical-align-top"/>
+                        <Input
+                            name="phone"
+                            type="text"
+                            value={values.phone}
+                            onChange={this.handleFormikInputChange({
+                                setFieldTouched,
+                                handleChange
+                            })}
+                            onBlur={handleBlur}
+                            wrapClass="form-control-combine-input w-60p  d-i-b vertical-align-top"/>
                     </div>
                 </FormControl>
 
                 {/* 姓名 */}
-                <FormControl label="會員姓名" errorMessage="">
+                <FormControl label="會員姓名" errorMessage={this.getErrorMessage('name')}>
                     <Input
+                        name="name"
                         type="text"
-                        onChange={() => {}}
+                        value={values.name}
+                        onChange={this.handleFormikInputChange({
+                            setFieldTouched,
+                            handleChange
+                        })}
+                        onBlur={handleBlur}
                         placeholder="請輸入真實中文姓名"
                     />
                 </FormControl>
 
                 {/* 密碼 */}
 
-                <FormControl label="密碼" errorMessage="">
+                <FormControl label="密碼" errorMessage={this.getErrorMessage('password')}>
                     <Input
+                        name="password"
                         type="password"
-                        onChange={() => {}}
+                        value={values.password}
+                        onChange={this.handleFormikInputChange({
+                            setFieldTouched,
+                            handleChange
+                        })}
+                        onBlur={handleBlur}
                         placeholder="請輸入密碼"
                     />
                 </FormControl>
                 {/* 確認密碼 */}
 
-                <FormControl label="確認密碼" errorMessage="">
+                <FormControl label="確認密碼" errorMessage={this.getErrorMessage('confirmPassword')}>
                     <Input
+                        name="confirmPassword"
                         type="password"
-                        onChange={() => {}}
+                        value={values.confirmPassword}
+                        onChange={this.handleFormikInputChange({
+                            setFieldTouched,
+                            handleChange
+                        })}
+                        onBlur={handleBlur}
                         placeholder="請輸入密碼"
                     />
                 </FormControl>
                 {/* Email */}
 
-                <FormControl label="Email" errorMessage="">
+                <FormControl label="Email" errorMessage={this.getErrorMessage('email')}>
                     <Input
+                        name="email"
                         type="email"
-                        onChange={() => {}}
+                        value={values.email}
+                        onChange={this.handleFormikInputChange({
+                            setFieldTouched,
+                            handleChange
+                        })}
+                        onBlur={handleBlur}
                         placeholder="請輸入 Email"
                     />
                 </FormControl>
                 {/* 手機驗證碼 */}
-                <FormControl label="手機驗證碼" errorMessage="">
+                <FormControl label="手機驗證碼" errorMessage={this.getErrorMessage('otp')}>
                     <Input
-                        type="email"
-                        onChange={() => {}}
+                        name="otp"
+                        type="number"
+                        value={values.otp}
+                        onChange={this.handleFormikInputChange({
+                            setFieldTouched,
+                            handleChange
+                        })}
+                        onBlur={handleBlur}
                         placeholder="請輸入驗證碼"
                         style={{
                             paddingRight: '32%',
@@ -101,7 +186,7 @@ export default class LoginForm extends Component {
                 {/* Submit */}
                 <button
                     className="LoginForm-submit btn btn-submit m-b-sm btn-border"
-                    disabled
+                    disabled={!isValid}
                 >
                     確定註冊
                 </button>
@@ -119,3 +204,6 @@ export default class LoginForm extends Component {
         )
     }
 }
+
+
+export default validateRegisterForm(LoginForm);
