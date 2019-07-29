@@ -1,0 +1,7 @@
+@import "styles/tools/tools.scss";
+.App {
+    &_content {
+        height: calc(100vh - #{$navbar_height});
+        position: relative;
+    }
+}

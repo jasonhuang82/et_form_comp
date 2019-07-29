@@ -1,0 +1,12 @@
+@function calcMargin ($baseNum: 1){
+    @return $margin_base * $baseNum;
+}
+
+@function calcPadding ($baseNum: 1){
+    @return $padding_base * $baseNum;
+}
+
+
+@function calcFontSize ($baseNum: 1){
+    @return $fontSize_base * $baseNum;
+}

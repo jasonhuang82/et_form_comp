@@ -1,0 +1,21 @@
+@import "styles/tools/tools.scss";
+.form-control {
+    & {
+        margin-bottom: 15px;
+    }
+
+    > label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .form-control-error {
+        color: $color_primary;
+        font-size: 12px;
+        font-weight: normal;
+        padding: 5px;
+        letter-spacing: 1px;
+    }
+}
+

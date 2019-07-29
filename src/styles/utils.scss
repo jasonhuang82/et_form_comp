@@ -1,0 +1,197 @@
+// btn
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: $color_disabled;
+    border: none;
+    color: #5d5d5d;
+    font-size: calcFontSize(1.5);
+    line-height: 1;
+    outline: none;
+    cursor: pointer;
+
+    &:not(:disabled):hover {
+        background-color: darken($color_disabled, 1.5);
+    }
+    &.btn-primary{
+        background-color: $color_primary;
+        color: #fff;
+        &:not(:disabled):hover {
+            background-color: darken( $color_primary, 1.5);
+        }
+    }
+    
+
+    &.btn-border {
+        border: 1px solid #e1e1e1;
+    }
+
+    // &.btn-disable {
+    &:disabled {
+        cursor: no-drop;
+        background-color: $color_disabled;
+        color: #999;
+    }
+}
+
+input, select {
+    outline: none;
+}
+
+.form-control-combine {
+    & {
+        height: $input_height;
+        border: 1px solid #e1e1e1;
+        &.form-control-combine-error {
+            border-color: $color_primary;
+        }
+    }
+
+    > div {
+        display: inline-block;
+        height: 100%;
+        vertical-align: top;
+    }
+
+    .form-control-combine-input {
+        input {
+            border: none;
+        }
+    }
+
+}
+
+
+// display
+.d-b {
+    display: block;
+}
+
+.d-i-b {
+    display: inline-block;
+}
+
+// width
+@for $i from 1 through 10 {
+    .w-#{$i}0p {
+        width: $i * 10%;
+    }
+}
+
+// height
+.h-80vh{
+    height: 80vh;
+}
+
+// margin 
+// margin top
+.m-t-xs {
+    margin-top: calcMargin(1);
+}
+
+.m-t-sm {
+    margin-top: calcMargin(2);
+}
+
+.m-t-md {
+    margin-top: calcMargin(3);
+}
+
+.m-t-lg {
+    margin-top: calcMargin(4);
+}
+// margin bottom
+.m-b-xs {
+    margin-bottom: calcMargin(1);
+}
+
+.m-b-sm {
+    margin-bottom: calcMargin(2);
+}
+
+.m-b-md {
+    margin-bottom: calcMargin(3);
+}
+
+.m-b-lg {
+    margin-bottom: calcMargin(4);
+}
+
+
+// padding 
+.p-xs {
+    padding: calcPadding(1);
+}
+
+.p-sm {
+    padding: calcPadding(2);
+}
+
+.p-md {
+    padding: calcPadding(3);
+}
+
+.p-lg {
+    padding: calcPadding(4);
+}
+
+// right
+.p-r-30p {
+    padding-right: 30%;
+}
+// font size 
+.fz-xs {
+    font-size: calcFontSize(1.2);
+}
+
+.fz-sm {
+    font-size: calcFontSize(1.4);
+}
+
+.fz-md {
+    font-size: calcFontSize(1.6);
+}
+
+.fz-lg {
+    font-size: calcFontSize(1.8);
+}
+
+// position
+.pos-ab {
+    position: absolute;
+}
+
+.pos-ab-center {
+    @include abCenter;
+}
+
+.t-50p {
+    top: 50%;
+}
+.r-5 {
+    right: 5px;
+}
+
+.translate-y-50p {
+    transform: translateY(-50%);
+}
+
+// background
+.bg-white {
+    background-color: #fff;
+}
+
+// color
+.color-primary {
+    color: $color_primary;
+}
+
+// vertical-align
+.vertical-align-top{
+    vertical-align: top;
+}
+
+.vertical-align-middle{
+    vertical-align: middle;
+}

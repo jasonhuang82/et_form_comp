@@ -1,0 +1,15 @@
+@import "styles/tools/tools.scss";
+
+.LoginForm {
+    max-width: 525px;
+    box-shadow: 0px 6px 15px rgba(#000, 0.2);
+    .LoginForm-title {
+        font-weight: normal;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .LoginForm-phone-btn {
+        padding: 8px 0px;
+    }
+}

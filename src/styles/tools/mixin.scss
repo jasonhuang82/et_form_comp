@@ -1,0 +1,29 @@
+// media query
+@mixin mediaMobile () {
+    @media (min-width: $media_lg_mobile) {
+        @content;
+    }
+}
+
+
+@mixin mediaTablets () {
+    @media (min-width: $media_tablets) {
+        @content;
+    }
+}
+
+
+
+@mixin mediaDesktop () {
+    @media (min-width: $media_desktop) {
+        @content;
+    }
+}
+
+// item center
+@mixin abCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}

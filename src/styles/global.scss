@@ -1,0 +1,17 @@
+@import "~normalize.css/normalize.css";
+
+@import "./tools/tools.scss";
+@import "./utils.scss";
+@import "./grid.scss";
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Microsoft JhengHei;
+    background-color: #f7f7f7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
