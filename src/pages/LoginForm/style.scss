@@ -9,68 +9,6 @@
         margin-bottom: 20px;
     }
 
-    .form-control {
-        & {
-            margin-bottom: 15px;
-        }
-
-        > label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-    }
-
-    .form-control-combine {
-        & {
-            height: $input_height;
-            border: 1px solid #e1e1e1;
-            &.form-control-combine-disable {
-                border-color: #cc1e05;
-            }
-        }
-
-        > [class^=form-control-combine-] {
-            display: inline-block;
-            height: 100%;
-            vertical-align: top;
-        }
-
-        .form-control-combine-select {
-            select {
-                display: block;
-                width: 100%;
-                height: 100%;
-                padding: 0 calcPadding(0.8);
-                border: none;
-                border-right: 1px solid #e1e1e1;
-                font-size: 14px;
-            }
-        }
-
-        .form-control-combine-input {
-            input {
-                border: none;
-            }
-        }
-
-    }
-
-    .form-control-input {
-        & {
-            height: $input_height;
-            position: relative;
-        }
-        input {
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding: 0 calcPadding(1);
-            border: 1px solid #e1e1e1;
-            font-size: 14px;
-        }
-    }
-
     .LoginForm-phone-btn {
         padding: 8px 0px;
     }
