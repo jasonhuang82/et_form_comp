@@ -3,6 +3,7 @@
 .LoginForm {
     max-width: 525px;
     box-shadow: 0px 6px 15px rgba(#000, 0.2);
+    overflow: auto;
     .LoginForm-title {
         font-weight: normal;
         font-size: 18px;
