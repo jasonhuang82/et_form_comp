@@ -5,3 +5,27 @@
         position: relative;
     }
 }
+
+
+// *-enter *-enter-active *-exit
+.App-transform-page-enter {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transform-origin: 50% 50%;
+    overflow: hidden;
+    z-index: 1;
+    transition: 300ms ease;
+}
+
+.App-transform-page-enter-active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: 50% 50%;
+    transition: 300ms ease;
+    
+}
+
+.App-transform-page-exit {
+    opacity: 0;
+    transition: 300ms ease;
+}
