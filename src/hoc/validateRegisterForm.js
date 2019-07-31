@@ -67,6 +67,8 @@ export default withFormik({
                 confirmPassword: validatePassword
                     .string()
                     .required('這是必填欄位!')
+                    // 驗證型別後，若想驗證他的值可用 oneOf，會只限定裡面能裝的值
+                    // https://github.com/jquense/yup/issues/72
                     .oneOf([values.password], '密碼需一致!'),
                     // .string().customPassword(`The password format is wrong.`),
                 email: validatePassword
