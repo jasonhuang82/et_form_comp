@@ -9,7 +9,10 @@ import validateRegisterForm from 'hoc/validateRegisterForm';
 
 class LoginForm extends Component {
     constructor(props){
-        super(props)
+        super(props);
+        this.state = {
+            otpText: '取得手機驗證碼',
+        };
         this.countryOptions = [
             {
                 name: '台灣 +886',
@@ -36,10 +39,14 @@ class LoginForm extends Component {
             },
         ];
     }
-    handleFormikInputChange = ({
-        setFieldTouched = () => {},
-        handleChange = () => {},
-    }) => e => {
+    handleFormikInputChange =  e => {
+        // https://github.com/jaredpalmer/formik/issues/114
+        // touched 必須在 blur 時，才會判斷已 touch，但會有一開始 onInput 時就 trigger 的情況
+        // 所以在 onChange 時就設定已 touch，讓 validation error message 能正常顯示
+        const {
+            setFieldTouched,
+            handleChange
+        } = this.props;
         const fieldName = e.target.name;
         setFieldTouched(fieldName, true, true);
         handleChange(e);
@@ -54,21 +61,62 @@ class LoginForm extends Component {
 
         return errors[fieldName] && touched[fieldName] && errors[fieldName];
     }
+
+
+    getOtpNumber = () => {
+        if (this.otpTimeoutId || this.otpIntervalId) return;
+
+        const { setFieldValue } = this.props;
+        // Set Otp text loading
+        let otpText = '取得驗證碼中';
+        this.otpIntervalId = setInterval(() => {
+            
+            if (otpText.length >= 9) {
+                otpText = '取得驗證碼中';
+                this.setState({
+                    otpText,
+                });
+                return;
+            }
+
+            otpText += '.';
+            this.setState({
+                otpText,
+            });
+        },300);
+
+        // after timeout, clear timeout interval and set value
+        this.otpTimeoutId = setTimeout(() => {
+            // clear
+            clearInterval(this.otpIntervalId);
+            clearTimeout(this.otpTimeoutId);
+            this.otpIntervalId = null;
+            this.otpTimeoutId = null;
+
+            // reset
+            this.setState({
+                otpText: '取得手機驗證碼'
+            });
+            // set field value
+            setFieldValue('otp', 777, true);
+        },1500);
+    }
+
+    handleLoginSubmit = () => {
+        const {
+            values,
+        } = this.props;
+
+        alert(JSON.stringify(values, null, 2));
+    }
     render() {
         const {
             values,
-            errors,
             isValid,
-            // touched,
             handleChange,
             handleBlur,
             // handleSubmit,
             // isSubmitting,
-            // https://github.com/jaredpalmer/formik/issues/114
-            // touched 必須在 blur 時，才會判斷已 touch，但會有一開始 onInput 時就 trigger 的情況
-            // 所以在 onChange 時就設定已 touch，讓 validation error message 能正常顯示
-            setFieldTouched,
-            setFieldValue,
         } = this.props;
         return (
             <div className="LoginForm w-80p h-80vh p-lg pos-ab-center bg-white">
@@ -91,10 +139,7 @@ class LoginForm extends Component {
                                 name="phone"
                                 type="text"
                                 value={values.phone}
-                                onChange={this.handleFormikInputChange({
-                                    setFieldTouched,
-                                    handleChange
-                                })}
+                                onChange={this.handleFormikInputChange}
                                 onBlur={handleBlur}
                                 wrapClass="form-control-combine-input w-60p  d-i-b vertical-align-top"/>
                         </div>
@@ -114,10 +159,7 @@ class LoginForm extends Component {
                                 name="addressDetail"
                                 type="text"
                                 value={values.addressDetail}
-                                onChange={this.handleFormikInputChange({
-                                    setFieldTouched,
-                                    handleChange
-                                })}
+                                onChange={this.handleFormikInputChange}
                                 onBlur={handleBlur}
                                 wrapClass="form-control-combine-input w-60p  d-i-b vertical-align-top"/>
                         </div>
@@ -130,10 +172,7 @@ class LoginForm extends Component {
                             name="name"
                             type="text"
                             value={values.name}
-                            onChange={this.handleFormikInputChange({
-                                setFieldTouched,
-                                handleChange
-                            })}
+                            onChange={this.handleFormikInputChange}
                             onBlur={handleBlur}
                             placeholder="請輸入真實中文姓名"
                         />
@@ -146,10 +185,7 @@ class LoginForm extends Component {
                             name="password"
                             type="password"
                             value={values.password}
-                            onChange={this.handleFormikInputChange({
-                                setFieldTouched,
-                                handleChange
-                            })}
+                            onChange={this.handleFormikInputChange}
                             onBlur={handleBlur}
                             placeholder="請輸入密碼"
                         />
@@ -161,10 +197,7 @@ class LoginForm extends Component {
                             name="confirmPassword"
                             type="password"
                             value={values.confirmPassword}
-                            onChange={this.handleFormikInputChange({
-                                setFieldTouched,
-                                handleChange
-                            })}
+                            onChange={this.handleFormikInputChange}
                             onBlur={handleBlur}
                             placeholder="請輸入密碼"
                         />
@@ -176,10 +209,7 @@ class LoginForm extends Component {
                             name="email"
                             type="email"
                             value={values.email}
-                            onChange={this.handleFormikInputChange({
-                                setFieldTouched,
-                                handleChange
-                            })}
+                            onChange={this.handleFormikInputChange}
                             onBlur={handleBlur}
                             placeholder="請輸入 Email"
                         />
@@ -190,10 +220,7 @@ class LoginForm extends Component {
                             name="otp"
                             type="text"
                             value={values.otp}
-                            onChange={this.handleFormikInputChange({
-                                setFieldTouched,
-                                handleChange
-                            })}
+                            onChange={this.handleFormikInputChange}
                             onBlur={handleBlur}
                             placeholder="請輸入驗證碼"
                             style={{
@@ -203,11 +230,10 @@ class LoginForm extends Component {
                                 return (
                                     <button
                                         className="LoginForm-phone-btn btn d-i-b w-30p pos-ab t-50p r-5 translate-y-50p"
-                                        onClick={e => {
-                                            setFieldValue('otp', '', true);
-                                        }}
+                                        onClick={this.getOtpNumber}
+                                        disabled={this.otpTimeoutId || this.otpIntervalId}
                                     >
-                                        取得手機驗證碼
+                                        {this.state.otpText}
                                     </button>
                                 );
                             }}
@@ -239,6 +265,7 @@ class LoginForm extends Component {
                     <button
                         className="LoginForm-submit btn btn-submit m-t-sm btn-border"
                         disabled={!isValid}
+                        onClick={this.handleLoginSubmit}
                     >
                         確定註冊
                     </button>
