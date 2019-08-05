@@ -22,6 +22,14 @@
         }
     }
     
+    &.btn-second-primary {
+        background-color: $color_second_primary;
+        color: #fff;
+        &:not(:disabled):hover {
+            background-color: darken($color_second_primary, 1.5);
+        }
+    }
+    
 
     &.btn-border {
         border: 1px solid #e1e1e1;
