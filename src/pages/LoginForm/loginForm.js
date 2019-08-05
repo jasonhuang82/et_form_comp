@@ -4,6 +4,7 @@ import './style.scss';
 import FormControl from 'components/FormControls/FormControl/formControl';
 import Input from 'components/FormControls/Input/input';
 import Select from 'components/FormControls/Select/select';
+import Modal from 'components/Modal/modal'
 // formik
 import validateRegisterForm from 'hoc/validateRegisterForm';
 
@@ -12,6 +13,9 @@ class LoginForm extends Component {
         super(props);
         this.state = {
             otpText: '取得手機驗證碼',
+            modal: {
+                nickName: false,
+            },
         };
         this.countryOptions = [
             {
@@ -97,8 +101,10 @@ class LoginForm extends Component {
             this.setState({
                 otpText: '取得手機驗證碼'
             });
+            
             // set field value
-            setFieldValue('otp', 777, true);
+            const randomNum = parseInt(Math.random() * 1000000);
+            setFieldValue('otp', randomNum, true);
         },1500);
     }
 
@@ -109,7 +115,30 @@ class LoginForm extends Component {
 
         alert(JSON.stringify(values, null, 2));
     }
+
+
+    handleOpenModal = modalName => e => {
+        this.setState({
+            modal: {
+                [modalName]: true,
+            },
+        })
+    }
+
+    handleCloseModal = modalName => e => {
+        this.setState({
+            modal: {
+                [modalName]: false,
+            },
+        })
+    }
+
     render() {
+        const {
+            modal: {
+                nickName,
+            },
+        } = this.state;
         const {
             values,
             isValid,
@@ -239,9 +268,41 @@ class LoginForm extends Component {
                             }}
                         />
                     </FormControl>
-                    
+                    {/* 綽號 */}
+                    <div>
+                        <label className="fz-sm">綽號</label>
+                        <button
+                            className="btn btn-second-primary m-t-sm fz-sm"
+                            onClick={this.handleOpenModal('nickName')}
+                        >
+                            請填綽號
+                        </button>
+                        <Modal
+                            isOpen={nickName}
+                            closeModal={this.handleCloseModal('nickName')}
+                            openModal={this.handleOpenModal('nickName')}
+                            className=""
+                        >
+                            <FormControl label="綽號" errorMessage={this.getErrorMessage('nickName')}>
+                                <Input
+                                    name="nickName"
+                                    type="text"
+                                    value={values.nickName}
+                                    onChange={this.handleFormikInputChange}
+                                    onBlur={handleBlur}
+                                    placeholder="請輸入綽號"
+                                />
+                            </FormControl>
+                            <button
+                                className="btn btn-primary m-t-sm"
+                                onClick={this.handleCloseModal('nickName')}
+                            >
+                                關閉
+                        </button>
+                        </Modal>
+                    </div>
                     {/* Agree */}
-                    <div className="fz-sm m-t-sm">
+                    <div className="fz-xs m-t-sm">
                         <label>
                             <input
                                 name="agree"
