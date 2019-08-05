@@ -31,7 +31,7 @@ export default class Info extends PureComponent {
                 
 
                 <button
-                    className="PurchaseForm-submit btn btn-submit btn-primary m-t-sm btn-border"
+                    className="PurchaseForm-submit btn btn-primary m-t-sm"
                     // disabled
                     // onClick={this.handleNextStep}
                 >
