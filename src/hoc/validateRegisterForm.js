@@ -1,5 +1,5 @@
 import { withFormik } from 'formik';
-import validatePassword from 'utils/validatePassword';
+import validatePasswordYup from 'utils/validatePassword';
 
 export default withFormik({
     // https://github.com/jaredpalmer/formik/issues/28
@@ -23,7 +23,7 @@ export default withFormik({
 
     validationSchema: props => {
         // https://github.com/jaredpalmer/formik/issues/145
-        return validatePassword.lazy(values => {
+        return validatePasswordYup.lazy(values => {
             let phoneReg = /((?=(09))[0-9]{10})$/g;
             switch(values.country){
                 case "886":
@@ -37,21 +37,21 @@ export default withFormik({
                     break;
 
             }
-            return validatePassword.object().shape({
-                country: validatePassword
+            return validatePasswordYup.object().shape({
+                country: validatePasswordYup
                     .string()
                     .notRequired(),
-                phone: validatePassword
+                phone: validatePasswordYup
                     .string()
                     .required('這是必填欄位!')
                     .matches(phoneReg, '電話格式有誤!'),
-                name:  validatePassword
+                name:  validatePasswordYup
                     .string()
                     .required('這是必填欄位!'),
-                addressArea: validatePassword
+                addressArea: validatePasswordYup
                     .string()
                     .notRequired(),
-                addressDetail: validatePassword
+                addressDetail: validatePasswordYup
                     .string()
                     .when('addressArea', (addressArea, yup) => {
                         if (addressArea && addressArea !== '') {
@@ -59,36 +59,40 @@ export default withFormik({
                         }
                         return yup;
                     }),
-                password: validatePassword
+                password: validatePasswordYup
                     .string()
                     .min(6, '最少 6 位數')
                     .max(8, '最多 8 位數')
                     .required('這是必填欄位!'),
-                confirmPassword: validatePassword
+                confirmPassword: validatePasswordYup
                     .string()
                     .required('這是必填欄位!')
                     // 驗證型別後，若想驗證他的值可用 oneOf，會只限定裡面能裝的值
                     // https://github.com/jquense/yup/issues/72
                     .oneOf([values.password], '密碼需一致!'),
-                    // .string().customPassword(`The password format is wrong.`),
-                email: validatePassword
+                email: validatePasswordYup
                     .string()
                     .required('這是必填欄位!')
                     .email(`Email 格式有誤!!`),
-                    // .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, `Email 格式有誤!!`),
-                otp: validatePassword
-                    .number()
+                otp: validatePasswordYup
                     // https://github.com/jquense/yup/issues/47#issuecomment-215588412
-                    .typeError('請輸入 0-9 正整數 !')
-                    .integer('請輸入 0-9 正整數 !')
+                    // .number()
+                    // .typeError('請輸入 0-9 正整數 !')
+                    // .integer('請輸入 0-9 正整數 !')
+                    // .required('這是必填欄位!'),
+                    // customer validate
+                    .string()
+                    .customPassword('必須為正整數'),
+                nickName: validatePasswordYup
+                    .string()
                     .required('這是必填欄位!'),
-                agree: validatePassword
+                agree: validatePasswordYup
                     .boolean()
                     .oneOf([true], '請勾選我同意!'),
             }) 
         })
     },
-    // 若要 submit 時在 validate 則 onChange onBlur 驗證 option 要關掉
+    // 若要 submit 時在 validate 則 onChange onBlur 驗證 option 要設成 false
     // validateOnChange: false,
     // validateOnBlur: false,
     displayName: 'ValidateRegisterForm',
