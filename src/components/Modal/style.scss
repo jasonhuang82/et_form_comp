@@ -1,0 +1,46 @@
+.Modal {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    &.ModalIsOpen {
+        display: block;
+    }
+    .Modal-close {
+        position: absolute;
+        right: 8px;
+        top: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        user-select: none;
+        line-height: 1;
+    }
+    .Modal-body {
+        min-width: 600px;
+        min-height: 200px;
+        max-width: 800px;
+        max-height: 600px;
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border-radius: 5px;
+        z-index: 1;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .Modal-dropBack {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(#000, 0.3);
+        z-index: 0;
+    }
+}
